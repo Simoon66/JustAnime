@@ -1,7 +1,8 @@
 import axios from "axios";
+import { getApiBaseUrl } from "@/src/config/api";
 
 const getSearch = async (keyword, page) => {
-  const api_url = import.meta.env.VITE_API_URL;
+  const api_url = getApiBaseUrl();
   if (!page) page = 1;
   try {
     const response = await axios.get(

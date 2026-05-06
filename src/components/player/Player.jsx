@@ -31,6 +31,7 @@ import getChapterStyles from "./getChapterStyle";
 import artplayerPluginHlsControl from "artplayer-plugin-hls-control";
 import artplayerPluginUploadSubtitle from "./artplayerPluginUploadSubtitle";
 import { getTitle } from "@/src/utils/title.utils";
+import { getM3u8ProxyUrl } from "@/src/config/api";
 
 Artplayer.LOG_VERSION = false;
 Artplayer.CONTEXTMENU = false;
@@ -68,8 +69,6 @@ export default function Player({
   const artRef = useRef(null);
   const leftAtRef = useRef(0);
   const boundKeydownRef = useRef(null);
-  const proxy = import.meta.env.VITE_M3U8_PROXY_URL;
-  const m3u8proxy = import.meta.env.VITE_M3U8_PROXY_URL?.split(",") || [];
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(
     episodes?.findIndex((episode) => episode.id.match(/ep=(\d+)/)?.[1] === episodeId)
   );
@@ -272,17 +271,16 @@ export default function Player({
       // ignore
     }
 
-    const hd1Proxy = import.meta.env.VITE_HD_1_PROXY_URL;
-    const currentProxy = (activeServerName === "HD-1" && hd1Proxy)
-      ? hd1Proxy
-      : m3u8proxy[Math.floor(Math.random() * m3u8proxy?.length)];
-
-    const art = new Artplayer({
-      url:
-        currentProxy +
+    const currentProxy = getM3u8ProxyUrl(activeServerName);
+    const videoUrl = currentProxy
+      ? currentProxy +
         encodeURIComponent(streamUrl) +
         "&headers=" +
-        encodeURIComponent(JSON.stringify(headers)),
+        encodeURIComponent(JSON.stringify(headers))
+      : streamUrl;
+
+    const art = new Artplayer({
+      url: videoUrl,
       container: artRef.current,
       type: "m3u8",
       autoplay: autoPlay,

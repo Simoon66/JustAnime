@@ -1,11 +1,9 @@
 import axios from "axios";
+import { getRandomApiBaseUrl } from "@/src/config/api";
 
 const getTopSearch = async () => {
   try {
-    let workerUrls = import.meta.env.VITE_WORKER_URL?.split(",");
-    let baseUrl = workerUrls?.length
-      ? workerUrls[Math.floor(Math.random() * workerUrls.length)]
-      : import.meta.env.VITE_API_URL;
+    const baseUrl = getRandomApiBaseUrl();
     const storedData = localStorage.getItem("topSearch");
     if (storedData) {
       const { data, timestamp } = JSON.parse(storedData);

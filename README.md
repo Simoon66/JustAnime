@@ -87,12 +87,20 @@ cd JustAnime
 npm install # or yarn
 ```
 
-### 3. Refer the <a href="https://github.com/JustAnimeCore/JustAnime/blob/main/.env.example">.env.example</a> to set your .env file up
+### 3. Create your local environment file
+
+Copy the example file and adjust the API/proxy targets if your backend runs on a different port:
+
+```bash
+cp .env.example .env
+```
+
+By default, local development uses `VITE_API_URL=/api` and Vite proxies `/api` to `VITE_API_PROXY_TARGET` from `.env`. For production deployments, set `VITE_API_URL` to your deployed HiAnime API URL, for example `https://your-api.example.com/api`.
 
 ## Start the server
 
 ```bash
-npm start # or npm run dev (to run develepment server)
+npm run dev
 ```
 ## Live Deployment
 

@@ -1,10 +1,11 @@
 import axios from "axios";
+import { getApiBaseUrl } from "@/src/config/api";
 
 const CACHE_KEY = "homeInfoCache";
 const CACHE_DURATION = 24 * 60 * 60 * 1000;
 
 export default async function getHomeInfo() {
-  const api_url = import.meta.env.VITE_API_URL;
+  const api_url = getApiBaseUrl();
 
   const currentTime = Date.now();
   const cachedData = JSON.parse(localStorage.getItem(CACHE_KEY));
