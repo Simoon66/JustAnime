@@ -21,7 +21,6 @@ import SplashScreen from "./components/splashscreen/SplashScreen";
 import Terms from "./pages/terms/Terms";
 import DMCA from "./pages/dmca/DMCA";
 import Contact from "./pages/contact/Contact";
-import DiscordPopup from "./components/DiscordPopup";
 
 function App() {
   const location = useLocation();
@@ -89,7 +88,6 @@ function App() {
           </main>
           <Analytics />
           <SpeedInsights />
-          <DiscordPopup />
         </div>
       </HomeInfoProvider>
     </HelmetProvider>

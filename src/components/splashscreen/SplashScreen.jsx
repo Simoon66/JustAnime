@@ -10,12 +10,12 @@ import { generateFAQSchema, generateCanonicalUrl, optimizeTitle } from "@/src/ut
 
 const FAQ_ITEMS = [
   {
-    question: "Is JustAnime safe?",
-    answer: "Yes, JustAnime is completely safe to use. We ensure all content is properly scanned and secured for our users."
+    question: "Is Yokoso safe?",
+    answer: "Yes, Yokoso is completely safe to use. We ensure all content is properly scanned and secured for our users."
   },
   {
-    question: "What makes JustAnime the best site to watch anime free online?",
-    answer: "JustAnime offers high-quality streaming, a vast library of anime, no intrusive ads, and a user-friendly interface - all completely free."
+    question: "What makes Yokoso the best site to watch anime free online?",
+    answer: "Yokoso offers high-quality streaming, a vast library of anime, no intrusive ads, and a user-friendly interface - all completely free."
   },
   {
     question: "How do I request an anime?",
@@ -56,18 +56,18 @@ function SplashScreen() {
     <>
       <Helmet>
         <title>{pageTitle}</title>
-        <meta name="description" content="JustAnime is the best site to watch anime online for free. Stream thousands of English subbed and dubbed anime episodes in HD quality with no ads." />
-        <meta name="keywords" content="justanime, watch anime free, anime online sub dub, free anime streaming, no ads anime, best anime site" />
+        <meta name="description" content="Yokoso is the best site to watch anime online for free. Stream thousands of English subbed and dubbed anime episodes in HD quality with no ads." />
+        <meta name="keywords" content="yokoso, watch anime free, anime online sub dub, free anime streaming, no ads anime, best anime site" />
         <link rel="canonical" href={canonicalUrl} />
 
         <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content="Watch high-quality anime online for free on JustAnime. No ads, daily updates, and a massive library of subbed and dubbed content." />
+        <meta property="og:description" content="Watch high-quality anime online for free on Yokoso. No ads, daily updates, and a massive library of subbed and dubbed content." />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:type" content="website" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content="Stream thousands of anime episodes for free in HD quality on JustAnime. The best ad-free experience for anime fans!" />
+        <meta name="twitter:description" content="Stream thousands of anime episodes for free in HD quality on Yokoso. The best ad-free experience for anime fans!" />
 
         {faqSchema && (
           <script type="application/ld+json">
@@ -79,7 +79,7 @@ function SplashScreen() {
         <div className="splash-overlay"></div>
         <div className="content-wrapper">
           <div className="logo-container">
-            <img src="/logo.png" alt={logoTitle} className="logo" />
+            <img src="/yokoso-logo.svg" alt={logoTitle} className="logo" />
           </div>
 
           <div className="search-container">

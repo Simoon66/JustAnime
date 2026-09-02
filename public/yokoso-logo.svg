@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 64" role="img" aria-labelledby="title">
+  <title>Yokoso</title>
+  <rect width="64" height="64" rx="14" fill="#7c3aed"/>
+  <path d="M17 17h11l5 12 5-12h11L38 42v10H28V42L17 17Z" fill="white"/>
+  <text x="78" y="43" fill="white" font-family="Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="1">YOKOSO</text>
+</svg>
