@@ -31,6 +31,15 @@ function App() {
     window.scrollTo(0, 0);
   }, [location]);
 
+  // Remove service workers installed by earlier third-party ad scripts.
+  useEffect(() => {
+    if (!("serviceWorker" in navigator)) return;
+
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      registrations.forEach((registration) => registration.unregister());
+    });
+  }, []);
+
   // Check if the current route is for the splash screen
   const isSplashScreen = location.pathname === "/";
 
