@@ -10,6 +10,7 @@ import { useLanguage } from "@/src/context/LanguageContext";
 import { Link, useNavigate } from "react-router-dom";
 import getSafeTitle from "@/src/utils/getSafetitle";
 import "./CategoryCard.css";
+import { isPublicCatalogEnabled } from "@/src/utils/publicCatalog.utils";
 
 const AnimeCard = ({ item, navigate, path, language, isFirstRow = false }) => {
   return (
@@ -22,7 +23,7 @@ const AnimeCard = ({ item, navigate, path, language, isFirstRow = false }) => {
           className="inline-block bg-gray-900 absolute left-0 top-0 w-full h-full group hover:cursor-pointer"
           onClick={() =>
             navigate(
-              `${path === "top-upcoming"
+              `${isPublicCatalogEnabled() || path === "top-upcoming"
                 ? `/${item.id}`
                 : `/watch/${item.id}`
               }`

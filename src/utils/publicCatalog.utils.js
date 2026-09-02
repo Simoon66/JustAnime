@@ -144,3 +144,41 @@ export const searchPublicCatalog = async (keyword, page = 1) => {
   const result = await getCatalogPage({ page, search: keyword.trim() });
   return { data: result.anime.map(toCard), totalPage: result.totalPages };
 };
+
+export const isPublicCatalogEnabled = () => ["jikan", "anilist"].includes(catalogProvider);
+
+export const getPublicCatalogAnime = async (id) => {
+  if (catalogProvider === "anilist") {
+    const data = await requestAniList(`query ($id: Int) { Media(idMal: $id, type: ANIME) { id idMal title { english romaji native } coverImage { extraLarge large } description(asHtml: false) seasonYear format duration averageScore genres status episodes studios { nodes { name } } } }`, { id: Number(id) });
+    const anime = anilistToAnime(data.Media);
+    return { data: toCatalogDetail(anime), seasons: [], recommended_data: [] };
+  }
+
+  try {
+    const data = await requestJikan(`/anime/${encodeURIComponent(id)}/full`);
+    return { data: toCatalogDetail(jikanToAnime(data.data)), seasons: [], recommended_data: [] };
+  } catch (error) {
+    console.warn("Jikan is unavailable; falling back to AniList.", error);
+    return getPublicCatalogAnimeWithAniList(id);
+  }
+};
+
+const getPublicCatalogAnimeWithAniList = async (id) => {
+  const data = await requestAniList(`query ($id: Int) { Media(idMal: $id, type: ANIME) { id idMal title { english romaji native } coverImage { extraLarge large } description(asHtml: false) seasonYear format duration averageScore genres status episodes studios { nodes { name } } } }`, { id: Number(id) });
+  return { data: toCatalogDetail(anilistToAnime(data.Media)), seasons: [], recommended_data: [] };
+};
+
+const toCatalogDetail = (anime) => ({
+  ...toCard(anime),
+  animeInfo: {
+    Overview: anime.description,
+    Japanese: anime.title.native,
+    Status: anime.status,
+    Duration: anime.duration,
+    "MAL Score": anime.score ? String(anime.score) : "",
+    Genres: anime.genres,
+    Studios: anime.studios,
+    Producers: [],
+    tvInfo: { rating: anime.rating, quality: "", sub: "", dub: "" },
+  },
+});
