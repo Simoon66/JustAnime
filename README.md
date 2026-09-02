@@ -132,3 +132,7 @@ If you discover any issues or have suggestions for improvement, please open an i
 <h2 align="center">
   <b>Enjoy streaming anime the way it should be! 🍿</b>
 </h2>
+
+### Public anime metadata
+
+Set `VITE_CATALOG_PROVIDER=jikan` to load the homepage and search results from Jikan's public MyAnimeList catalog. If Jikan is unavailable, the app automatically falls back to AniList; set `VITE_CATALOG_PROVIDER=anilist` to use AniList directly. These providers supply metadata only and do not provide video streams.
