@@ -1,7 +1,8 @@
 import axios from "axios";
+import { getApiBaseUrl } from "@/src/config/api";
 
 export default async function getEpisodes(id) {
-  const api_url = import.meta.env.VITE_API_URL;
+  const api_url = getApiBaseUrl();
   try {
     const response = await axios.get(`${api_url}/episodes/${id}`);
     return response.data.results;

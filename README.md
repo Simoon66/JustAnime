@@ -87,12 +87,20 @@ cd JustAnime
 npm install # or yarn
 ```
 
-### 3. Refer the <a href="https://github.com/JustAnimeCore/JustAnime/blob/main/.env.example">.env.example</a> to set your .env file up
+### 3. Create your local environment file
+
+Copy the example file and adjust the API/proxy targets if your backend runs on a different port:
+
+```bash
+cp .env.example .env
+```
+
+By default, local development uses `VITE_API_URL=/api` and Vite proxies `/api` to `VITE_API_PROXY_TARGET` from `.env`. For production deployments, set `VITE_API_URL` to your deployed HiAnime API URL, for example `https://your-api.example.com/api`.
 
 ## Start the server
 
 ```bash
-npm start # or npm run dev (to run develepment server)
+npm run dev
 ```
 ## Live Deployment
 
@@ -124,3 +132,7 @@ If you discover any issues or have suggestions for improvement, please open an i
 <h2 align="center">
   <b>Enjoy streaming anime the way it should be! 🍿</b>
 </h2>
+
+### Public anime metadata
+
+Set `VITE_CATALOG_PROVIDER=jikan` to load the homepage and search results from Jikan's public MyAnimeList catalog. If Jikan is unavailable, the app automatically falls back to AniList; set `VITE_CATALOG_PROVIDER=anilist` to use AniList directly. These providers supply metadata only and do not provide video streams.

@@ -1,6 +1,9 @@
-self.options = {
-    "domain": "3nbf4.com",
-    "zoneId": 10535478
-}
-self.lary = ""
-importScripts('https://3nbf4.com/act/files/service-worker.min.js?r=sw')
+// This file intentionally contains no third-party service-worker code.
+// It safely replaces and removes legacy service workers that could trigger redirects.
+self.addEventListener("install", () => {
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(self.registration.unregister());
+});

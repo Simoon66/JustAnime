@@ -1,7 +1,8 @@
 import axios from "axios";
+import { getApiBaseUrl } from "@/src/config/api";
 
 const getNextEpisodeSchedule = async (id) => {
-  const api_url = import.meta.env.VITE_API_URL;
+  const api_url = getApiBaseUrl();
   try {
     const response = await axios.get(`${api_url}/schedule/${id}`);
     return response.data.results;

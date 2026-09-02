@@ -1,4 +1,5 @@
 import getAnimeInfo from "@/src/utils/getAnimeInfo.utils";
+import { isPublicCatalogEnabled } from "@/src/utils/publicCatalog.utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -219,6 +220,7 @@ function AnimeInfo({ random = false }) {
 
   const { poster, japanese_title, animeInfo: info } = animeInfo;
   const isAiring = animeInfo?.animeInfo?.Status?.toLowerCase() !== "not-yet-aired";
+  const canWatch = isAiring && !isPublicCatalogEnabled();
 
   return (
     <>
@@ -269,14 +271,14 @@ function AnimeInfo({ random = false }) {
               </div>
 
               <div className="mt-6">
-                {isAiring ? (
+                {canWatch ? (
                   <Link to={`/watch/${animeInfo.id}`} className="flex justify-center items-center w-full px-4 py-3 bg-white/10 backdrop-blur-md rounded-lg text-white hover:bg-white/20 transition-all group">
                     <FontAwesomeIcon icon={faPlay} className="mr-2 text-xs group-hover:scale-110 transition-transform" />
                     <span className="font-medium text-sm">Watch Now</span>
                   </Link>
                 ) : (
                   <div className="flex justify-center items-center w-full px-4 py-3 bg-gray-700/50 rounded-lg text-gray-400">
-                    <span className="font-medium text-sm">Not yet released</span>
+                    <span className="font-medium text-sm">No video source available</span>
                   </div>
                 )}
               </div>
@@ -309,14 +311,14 @@ function AnimeInfo({ random = false }) {
                   <TagsList tags={tags} />
                   <Synopsis text={info?.Overview} isFull={isFull} onToggle={() => setIsFull(!isFull)} />
 
-                  {isAiring ? (
+                  {canWatch ? (
                     <Link to={`/watch/${animeInfo.id}`} className="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-md rounded-xl text-white hover:bg-white/20 hover:scale-[1.02] transition-all group">
                       <FontAwesomeIcon icon={faPlay} className="mr-2 text-sm group-hover:scale-110 transition-transform" />
                       <span className="font-medium">Watch Now</span>
                     </Link>
                   ) : (
                     <div className="inline-flex items-center px-6 py-3 bg-gray-700/50 rounded-xl text-gray-400">
-                      <span className="font-medium">Not yet released</span>
+                      <span className="font-medium">No video source available</span>
                     </div>
                   )}
 

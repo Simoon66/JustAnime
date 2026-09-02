@@ -1,10 +1,12 @@
 import axios from "axios";
+import { getApiBaseUrl } from "@/src/config/api";
+import { getPublicCatalogHome, isPublicCatalogEnabled } from "@/src/utils/publicCatalog.utils";
 
-const CACHE_KEY = "homeInfoCache";
+const CACHE_KEY = "homeInfoCache-public";
 const CACHE_DURATION = 24 * 60 * 60 * 1000;
 
 export default async function getHomeInfo() {
-  const api_url = import.meta.env.VITE_API_URL;
+  const api_url = getApiBaseUrl();
 
   const currentTime = Date.now();
   const cachedData = JSON.parse(localStorage.getItem(CACHE_KEY));
@@ -12,6 +14,12 @@ export default async function getHomeInfo() {
   if (cachedData && currentTime - cachedData.timestamp < CACHE_DURATION) {
     return cachedData.data;
   }
+  if (isPublicCatalogEnabled()) {
+    const data = await getPublicCatalogHome();
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ data, timestamp: currentTime }));
+    return data;
+  }
+
   const response = await axios.get(`${api_url}`);
   if (
     !response.data.results ||

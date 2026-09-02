@@ -21,7 +21,6 @@ import SplashScreen from "./components/splashscreen/SplashScreen";
 import Terms from "./pages/terms/Terms";
 import DMCA from "./pages/dmca/DMCA";
 import Contact from "./pages/contact/Contact";
-import DiscordPopup from "./components/DiscordPopup";
 
 function App() {
   const location = useLocation();
@@ -30,6 +29,15 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
+
+  // Remove service workers installed by earlier third-party ad scripts.
+  useEffect(() => {
+    if (!("serviceWorker" in navigator)) return;
+
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      registrations.forEach((registration) => registration.unregister());
+    });
+  }, []);
 
   // Check if the current route is for the splash screen
   const isSplashScreen = location.pathname === "/";
@@ -80,7 +88,6 @@ function App() {
           </main>
           <Analytics />
           <SpeedInsights />
-          <DiscordPopup />
         </div>
       </HomeInfoProvider>
     </HelmetProvider>
